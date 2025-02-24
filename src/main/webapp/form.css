@@ -1,21 +1,77 @@
 body {
-    display: flex;
+	display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-    margin: 0;
+    
+	margin: 0;
+	width: 100%;
+    background-color: #F2F0F3;
 }
 
-.form-holder {
+.material-symbols-outlined {
+	font-size:48px;
+}
+
+.banner {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    padding:0 30px;
+    box-sizing: border-box;
+   
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-between;
+    
+    color: black;
+    background-color:#FFF;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.logo-container {
+	display: flex;
+    align-items: center;
+    gap:10px
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.company-name {
+    font-size: 33px;
+    font-weight: bold;
+}
+
+.view-db-button {
+    padding: 0;
+    background: #CD342E;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;  /* Increase icon size */
+}
+
+
 
 .form-container {
-    width: 600px;
+	margin-top:100px;
+    width: 50%;
     padding: 30px;
     background: #fff;
     border-radius: 10px;
@@ -96,13 +152,17 @@ body {
 }
 
 .row-container input {
-    width: 45%
+    width: 45%;
 }
 
+.buttons{
+	display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
 .form-button {
-    width: 100%;
+	width: 45%;
     padding: 12px;
-    margin-top: 20px;
     background: #007BFF;
     color: white;
     border: none;
@@ -116,8 +176,29 @@ body {
     background: #0056b3;
 }
 
-.view-db-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+
+
+.popup-message {
+    border: none;
+    padding: 20px;
+    background: white;
+    color: black;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.popup-message button {
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#pan { 
+	text-transform: uppercase; 
+	}

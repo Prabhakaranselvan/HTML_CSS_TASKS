@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/Bank_User_Registration";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/bank_user_registration";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "root";
     
@@ -34,58 +34,103 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-    {
-        String title = request.getParameter("Title");
-        String firstName = request.getParameter("First_Name");
-        String lastName = request.getParameter("Last_Name");
-        String dob = request.getParameter("DOB");
-        String gender = request.getParameter("Gender");
-        String email = request.getParameter("Email");
-        String phone = request.getParameter("Phone");
-        String aadhar = request.getParameter("Aadhar");
-        String pan = request.getParameter("PAN");
-        String accountType = request.getParameter("Account_Type");
-        String address1 = request.getParameter("Address_Line1");
-        String address2 = request.getParameter("Address_Line2");
-        String district = request.getParameter("District");
-        String state = request.getParameter("State");
-        String country = request.getParameter("Country");
-        String pincode = request.getParameter("Pincode");
-        String nomineeName = request.getParameter("Nominee_Name");
-        String nomineeContact = request.getParameter("Nominee_Contact");
-        String password = request.getParameter("Password");
-
-        String sql = "INSERT INTO bank_accounts (Title, First_Name, Last_Name, DOB, Gender, Email, Phone, Aadhar, PAN, Account_Type, "
-        		+ "Address_Line1, Address_Line2, District, State, Country, Pincode, Nominee_Name, Nominee_Contact, Password)" 
-        		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    {	
+    	String action = request.getParameter("action");
+    	String id = request.getParameter("id");
+        String title = request.getParameter("title");
+        String firstName = request.getParameter("first_name");
+        String lastName = request.getParameter("last_name");
+        String dob = request.getParameter("date_of_birth");
+        String gender = request.getParameter("gender");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String aadhar = request.getParameter("aadhar");
+        String pan = request.getParameter("pan");
+        String accountType = request.getParameter("account_type");
+        String address1 = request.getParameter("address_line1");
+        String address2 = request.getParameter("address_line2");
+        String district = request.getParameter("district");
+        String state = request.getParameter("state");
+        String country = request.getParameter("country");
+        String pincode = request.getParameter("pincode");
+        String nomineeName = request.getParameter("nominee_name");
+        String nomineeContact = request.getParameter("nominee_contact");
+        String password = request.getParameter("password");
+        
+        boolean isUpdate = "update".equals(action);
+        boolean isDelete = "delete".equals(action);
+        String sql;
+        
+        if (isDelete)
+        {
+        	sql = "DELETE FROM user_details WHERE id = ?";
+        }
+        else if(isUpdate)
+        {
+        	sql = "UPDATE user_details SET title = ?, first_name = ?, last_name = ?, date_of_birth = ?, gender = ?, email = ?, phone = ?, " 
+        		    + "aadhar = ?, pan = ?, account_type = ?, address_line1 = ?, address_line2 = ?, district = ?, state = ?, country = ?, " 
+        		    + "pincode = ?, nominee_name = ?, nominee_contact = ?, password = ? WHERE id = ?";
+        }
+        else
+        {
+        	sql = "INSERT INTO user_details (title, first_name, last_name, date_of_birth, gender, email, phone, aadhar, pan, account_type, "
+            		+ "address_line1, address_line2, district, state, country, pincode, nominee_name, nominee_contact, password)" 
+            		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        }
         
         try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) 
         {
-        	pstmt.setString(1, title);
-		    pstmt.setString(2, firstName);
-		    pstmt.setString(3, lastName);
-		    pstmt.setString(4, dob);
-		    pstmt.setString(5, gender);
-		    pstmt.setString(6, email);
-		    pstmt.setString(7, phone);
-		    pstmt.setString(8, aadhar);
-		    pstmt.setString(9, pan);
-		    pstmt.setString(10, accountType);
-		    pstmt.setString(11, address1);
-		    pstmt.setString(12, address2);
-		    pstmt.setString(13, district);
-		    pstmt.setString(14, state);
-		    pstmt.setString(15, country);
-		    pstmt.setString(16, pincode);
-		    pstmt.setString(17, nomineeName);
-		    pstmt.setString(18, nomineeContact);
-		    pstmt.setString(19, password);
+        	if(isDelete) 
+        	{
+        		pstmt.setString(1, id);
+        	}
+        	else
+        	{
+	        	pstmt.setString(1, title);
+			    pstmt.setString(2, firstName);
+			    pstmt.setString(3, lastName);
+			    pstmt.setString(4, dob);
+			    pstmt.setString(5, gender);
+			    pstmt.setString(6, email);
+			    pstmt.setString(7, phone);
+			    pstmt.setString(8, aadhar);
+			    pstmt.setString(9, pan);
+			    pstmt.setString(10, accountType);
+			    pstmt.setString(11, address1);
+			    pstmt.setString(12, address2);
+			    pstmt.setString(13, district);
+			    pstmt.setString(14, state);
+			    pstmt.setString(15, country);
+			    pstmt.setString(16, pincode);
+			    pstmt.setString(17, nomineeName);
+			    pstmt.setString(18, nomineeContact);
+			    pstmt.setString(19, password);
+			    if (isUpdate)
+			    {
+			    	pstmt.setString(20, id);
+			    }
+        	}
 		
 		    int rowsInserted = pstmt.executeUpdate();
-		
-		    response.setContentType("text/html");
-		    response.getWriter().println(rowsInserted > 0 ? "Submitted Successfully" : "Error: Unable to register.");
+		    if (isDelete)
+		    {
+		        request.setAttribute("message", rowsInserted > 0 ? "Deleted Successfully" : "Error: Unable to Delete.");
+		        doGet(request,response);
+		    }
+		    
+		    else if (isUpdate) 
+		    {
+		        request.setAttribute("message", rowsInserted > 0 ? "Updated Successfully" : "Error: Unable to update.");		
+		        doGet(request,response);
+		    }
+
+		    else 
+		    { 
+		        request.setAttribute("message", rowsInserted > 0 ? "Submitted Successfully" : "Error: Unable to register.");
+		        request.getRequestDispatcher("form.jsp").forward(request, response);
+		    }
+		    
         } 
         catch (Exception e) 
         {
@@ -96,42 +141,74 @@ public class RegisterServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+    	String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        String sql;
+        boolean isView = "edit".equals(action);
         List<String[]> records = new ArrayList<>();
-        String sql = "SELECT * FROM bank_accounts";
+        if (isView) 
+        {
+            sql = "SELECT * FROM user_details WHERE id = ?";
+        } 
+        else 
+        {
+        	
+            sql = "SELECT * FROM user_details";
+        }
 
         try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) 
+        		PreparedStatement pstmt = conn.prepareStatement(sql)) 
         {
-            
-            while (rs.next()) 
-            {
-                String[] row = {
-                    rs.getString("Title"),
-                    rs.getString("First_Name"),
-                    rs.getString("Last_Name"),
-                    rs.getString("DOB"),
-                    rs.getString("Gender"),
-                    rs.getString("Email"),
-                    rs.getString("Phone"),
-                    rs.getString("Aadhar"),
-                    rs.getString("PAN"),
-                    rs.getString("Account_Type"),
-                    rs.getString("Address_Line1"),
-                    rs.getString("District"),
-                    rs.getString("State"),
-                    rs.getString("Country"),
-                    rs.getString("Pincode"),
-                    rs.getString("Nominee_Name"),
-                    rs.getString("Nominee_Contact")
-                };
-                records.add(row);
+	        if (isView) 
+	        {
+	            pstmt.setString(1, id);
+	        }
+	        try (ResultSet rs = pstmt.executeQuery())
+	        {
+	            while (rs.next()) 
+	            {
+	                String[] row = {
+	                    rs.getString("id"),
+	                    rs.getString("title"),
+	                    rs.getString("first_name"),
+	                    rs.getString("last_name"),
+	                    rs.getString("date_of_birth"),
+	                    rs.getString("gender"),
+	                    rs.getString("email"),
+	                    rs.getString("phone"),
+	                    rs.getString("aadhar"),
+	                    rs.getString("pan"),
+	                    rs.getString("account_type"),
+	                    rs.getString("address_line1"),
+	                    rs.getString("address_line2"),
+	                    rs.getString("district"),
+	                    rs.getString("state"),
+	                    rs.getString("country"),
+	                    rs.getString("pincode"),
+	                    rs.getString("nominee_name"),
+	                    rs.getString("nominee_contact"),
+	                    rs.getString("password")
+	                };
+	                records.add(row);
+	            }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
-        
+
         request.setAttribute("records", records);
-        request.getRequestDispatcher("viewDataBase.jsp").forward(request, response);
+        if (isView) 
+        {
+        	
+            request.getRequestDispatcher("form.jsp").forward(request, response);
+        } 
+        else 
+        {
+        	
+            request.getRequestDispatcher("viewDataBase.jsp").forward(request, response);
+            
+        }
     }
 }

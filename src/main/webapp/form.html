@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -12,96 +12,97 @@
         <form class="form-container" action="RegisterServlet" method="post">
         	<h2 class="form-header">BANK ACCOUNT REGISTRATION</h2>
 
-			<!-- Name Section -->
+			Name Section
 			<label class="form-label" for="title">Name:<span class="required">*</span></label>
             <div class="name-container">
-            	<select class="form-input" id="title" name="Title" required>
+            	<select class="form-input" id="title" name="title" required>
             		<option value="Mr">Mr</option>
                     <option value="Mrs">Mrs</option>
                     <option value="Ms">Ms</option>
                  </select>
-                 <input class="form-input" type="text" id="first-name" name="First_Name" placeholder="First Name" required>
-                 <input class="form-input" type="text" id="last-name" name="Last_Name" placeholder="Last Name">
+                 <input class="form-input" type="text" id="first-name" name="first_name" placeholder="First Name" required>
+                 <input class="form-input" type="text" id="last-name" name="last_name" placeholder="Last Name">
             </div>
 
-			<!-- DOB Section -->
+			DOB Section
             <label class="form-label" for="dob">Date of Birth:<span class="required">*</span></label>
-            <input class="form-input" type="date" id="dob" name="DOB" required>
+            <input class="form-input" type="date" id="dob" name="date_of_birth" required>
 
-			<!-- Gender Section -->
+			Gender Section
             <label class="form-label" for="gender">Gender:<span class="required">*</span></label>
             <div class="gender">
             	<div class="options">
-            		<input class="radio-input" type="radio" id="male" name="Gender" value="Male" required>
+            		<input class="radio-input" type="radio" id="male" name="gender" value="Male" required>
                 	<label class="radio-label" for="male">Male</label>
                 </div>
                 <div class="options">
-                	<input class="radio-input" type="radio" id="female" name="Gender" value="Female" required>
+                	<input class="radio-input" type="radio" id="female" name="gender" value="Female" required>
                 	<label class="radio-label" for="female">Female</label>
                	</div>
                	<div class="options">
-					<input class="radio-input" type="radio" id="other" name="Gender" value="Other" required>
+					<input class="radio-input" type="radio" id="other" name="gender" value="Other" required>
                 	<label class="radio-label" for="other">Other</label>
             	</div>
             </div>
 
-			<!-- Email Section -->
+			Email Section
             <label class="form-label" for="email">Email:<span class="required">*</span></label>
-            <input class="form-input" type="email" id="email" name="Email" required>
+            <input class="form-input" type="email" id="email" name="email" required>
 
-			<!-- Phone Number Section -->
+			Phone Number Section
             <label class="form-label" for="phone">Phone Number:<span class="required">*</span></label>
-            <input class="form-input" type="text" id="phone" name="Phone" maxlength="10" pattern="[0-9]{10}" title="Phone number must be 10 digits"required>
+            <input class="form-input" type="text" id="phone" name="phone" maxlength="10" pattern="[0-9]{10}" title="Phone number must be 10 digits"required>
 
-			<!-- Aadhar Number Section -->
+			Aadhar Number Section
             <label class="form-label" for="aadhar">Aadhar Number:</label>
-            <input class="form-input" type="text" id="aadhar" name="Aadhar" maxlength="16" pattern="[0-9]{16}" title="Aadhar number must be 16 digits">
+            <input class="form-input" type="text" id="aadhar" name="aadhar" maxlength="12" pattern="[0-9]{12}" title="Aadhar number must be 12 digits">
 
-			<!-- PAN Number Section -->
+			PAN Number Section
             <label class="form-label" for="pan">PAN Number:<span class="required">*</span></label>
-            <input class="form-input" type="text" id="pan" name="PAN" maxlength="10" pattern="[A-Z]{5}[0-9]{4}[A-Z]" title="PAN must be 10 characters: First 5 letters, next 4 digits, and last letter. All Letters must be Uppercase" required>
+            <input class="form-input" type="text" id="pan" name="pan" maxlength="10" pattern="[A-Z]{5}[0-9]{4}[A-Z]" title="PAN must be 10 characters: First 5 letters, next 4 digits, and last letter. All Letters must be Uppercase" required>
             
-            <!-- Account Type Section -->
+            Account Type Section
             <label class="form-label" for="account-type">Account Type:<span class="required">*</span></label>
-            <select class="form-input" id="account-type" name="Account_Type" required>
+            <select class="form-input" id="account-type" name="account_type" required>
                 <option value="Savings">Savings</option>
                 <option value="Current">Current</option>
                 <option value="Fixed Deposit">Fixed Deposit</option>
             </select>
 			
-			<!-- Address Section -->
+			Address Section
             <label class="form-label">Address:<span class="required">*</span></label>
-            <input class="form-input" type="text" id="address-line1" name="Address_Line1" placeholder="Address Line 1" required>
-            <input class="form-input" type="text" id="address-line2" name="Address_Line2" placeholder="Address Line 2">
+            <input class="form-input" type="text" id="address-line1" name="address_line1" placeholder="Address Line 1" required>
+            <input class="form-input" type="text" id="address-line2" name="address_line2" placeholder="Address Line 2">
             <div class="row-container">
-                    <input class="form-input" type="text" id="district" name="District" placeholder="District" required>
-                    <input class="form-input" type="text" id="state" name="State" placeholder="State" required>
+                    <input class="form-input" type="text" id="district" name="district" placeholder="District" required>
+                    <input class="form-input" type="text" id="state" name="state" placeholder="State" required>
             </div>
             <div class="row-container">
-            		<input class="form-input" type="text" id="country" name="Country" placeholder="Country" required>
-               		<input class="form-input" type="text" id="pincode" name="Pincode" placeholder="Pincode" maxlength="6" pattern="[0-9]{6}" title="Pincode must be 6 digits" required>
+            		<input class="form-input" type="text" id="country" name="country" placeholder="Country" required>
+               		<input class="form-input" type="text" id="pincode" name="pincode" placeholder="Pincode" maxlength="6" pattern="[0-9]{6}" title="Pincode must be 6 digits" required>
             </div>
 
-            <!-- Nominee Details Section -->
+            Nominee Details Section
             <label class="form-label" for="nominee-name">Nominee Name:</label>
-            <input class="form-input" type="text" id="nominee-name" name="Nominee_Name">
+            <input class="form-input" type="text" id="nominee-name" name="nominee_name">
 
             <label class="form-label" for="nominee-contact">Nominee Contact No:</label>
-            <input class="form-input" type="tel" id="nominee-contact" name="Nominee_Contact" maxlength="10" pattern="[0-9]{10}" title="Phone number must be 10 digits">
+            <input class="form-input" type="tel" id="nominee-contact" name="nominee_contact" maxlength="10" pattern="[0-9]{10}" title="Phone number must be 10 digits">
 	
-			<!-- Password Section -->
+			Password Section
             <label class="form-label" for="password">Set Password:<span class="required">*</span></label>
-            <input class="form-input" type="password" id="password" name="Password" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20}" title="Password must be 8-20 characters long and include at least one number, one special character, one lowercase, and one uppercase letter."required>
+            <input class="form-input" type="password" id="password" name="password" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20}" title="Password must be 8-20 characters long and include at least one number, one special character, one lowercase, and one uppercase letter."required>
 
-			<!-- Submit Button -->
+			Submit Button
             <button class="form-button" type="submit">Submit</button>
             
         </form>
         <div class="view-db-button">
     			<button type="button" class="form-button" onclick="window.location.href='RegisterServlet'">View Database</button>
 
-			</div>
+		</div>
     </div>
 </body>
 
 </html>
+ -->

@@ -1,22 +1,84 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-    margin: 0;
-    font-family: DejaVu Sans, sans-serif;
+	margin: 0;
+	width: 100%;
+	height: 100vh;
+	background-color: #FFFF;
+	font-family: DejaVu Sans, sans-serif;
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	overflow: hidden;
+}
+
+
+.banner {
+	width: 100%;
+	height: 70px;
+	padding: 0 30px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: black;
+	background-color: #FFF;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo-container {
+	display: flex;
+	align-items: center;
+	gap: 20px
+}
+
+.logo {
+	height: 50px;
+	width: auto;
+}
+
+.company-name {
+	font-size: 33px;
+	font-weight: bold;
+}
+
+.banner-buttons {
+	display:flex;
+	gap:30px;
+}
+
+.banner-button {
+	padding: 0;
+	background: #CD342E;
+	color: white;
+	border: none;
+	border-radius: 50%;
+	font-size: 24px;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	transition: background 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.banner-button .material-symbols-outlined {
+	font-size: 35px;
+	font-weight:bold;
+}
+
+.banner-button:hover {
+    background-color: #007BFF;
 }
 
 .DB-holder {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background: white;
     width: 95%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+    margin-top:35px;
 }
 
 .DB-header {
@@ -31,6 +93,7 @@ table {
     border-collapse: collapse;
     background: white;
     border: 1px solid #ddd;
+    margin: 0px 30px 30px 30px;
 }
 
 th {
@@ -44,7 +107,7 @@ th {
 th, td {
     padding: 6px;
     border: 1px solid #ddd;
-    font-size : px;
+    font-size : 16px;
     text-align: center;
     vertical-align: middle;
 }
@@ -54,40 +117,40 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: #ddd;
+    background-color: #bbb;
 }
 
-.edit-button {
-    padding: 10px;
+.edit-button, .delete-button{
     background: black;
     color: white;
     border: none;
-    border-radius: 5px;
+    height: 40px;
+    width : 40px;
+    border-radius: 50%;
     font-size: 14px;
     cursor: pointer;
     transition: background 0.3s;
 }
 
-
-.form-button {
-    padding: 12px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
 .edit-button:hover {
     background-color: white;
     color: black;
     font-weight: bold;
 }
-.form-button:hover {
-    background-color: #0056b3;
+
+.delete-button {
+	background: red;
+}
+
+.delete-button:hover {
+    background-color: white;
+    color: red;
+    font-weight: bold;
+}
+
+
+.edit-button .material-symbols-outlined{
+	font-size: 20px;
 }
 
 .popup-message {
@@ -99,6 +162,13 @@ tr:hover {
     border-radius: 5px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.edit-delete-buttons {
+	display:flex;
+	align-items:center;
+	justify-content: center;
+	gap: 10px;
 }
 
 .popup-message button {

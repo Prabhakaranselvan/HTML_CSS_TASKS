@@ -55,7 +55,7 @@
 
 .banner-buttons {
 	display: flex;
-	gap: 30px;
+	gap: 20px;
 }
 
 .banner-button {
@@ -81,6 +81,16 @@
 
 .banner-button:hover {
 	background-color: #007BFF;
+}
+
+.icon-label {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.button-label {
+	font-weight: bold;	
 }
 
 .footer {

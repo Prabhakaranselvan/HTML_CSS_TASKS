@@ -4,9 +4,9 @@
 
 <%
     request.setAttribute("buttonCount", 2);
-    request.setAttribute("buttonIcons", new String[]{"person_add", "chevron_left"});
-    request.setAttribute("onClick", new String[]{"window.location.href='form.jsp'", "history.back()"});
-    request.setAttribute("iconTitle", new String[]{"Add User", "Back"});
+    request.setAttribute("buttonIcons", new String[]{"person_add", "home"});
+    request.setAttribute("onClick", new String[]{"window.location.href='form.jsp'", "window.location.href='form.jsp'"});
+    request.setAttribute("iconLabel", new String[]{"Add User", "Home"});
 %>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>View Database</title>
+    <title>IAM Users</title>
     <link rel="stylesheet" href="database.css">
      <link rel="icon" href="images/favicon.png?v=1"/>
 </head>

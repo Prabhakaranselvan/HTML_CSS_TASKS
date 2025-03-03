@@ -23,7 +23,7 @@
     int buttonCount = (int) request.getAttribute("buttonCount"); 
 	String[] buttonIcons = (String[]) request.getAttribute("buttonIcons");
 	String[] onClick = (String[]) request.getAttribute("onClick");
-	String[] iconTitle = (String[]) request.getAttribute("iconTitle");
+	String[] iconLabel = (String[]) request.getAttribute("iconLabel");
     %>
 
     <div class="banner">
@@ -36,7 +36,10 @@
             <%
             for (int i = 0; i < buttonCount; i++) { 
            	%>
-            	<button class="banner-button" onclick="<%= onClick[i] %>"><span title="<%= iconTitle[i] %>" class="material-symbols-outlined"><%=  buttonIcons[i] %></span></button>
+           	<div class="icon-label">
+            	<button class="banner-button" onclick="<%= onClick[i] %>"><span class="material-symbols-outlined"><%=  buttonIcons[i] %></span></button>
+            	<label class="button-label" for="banner-button"><%= iconLabel[i] %></label>
+           	</div>
             <% } %>
         </div>
 	</div>

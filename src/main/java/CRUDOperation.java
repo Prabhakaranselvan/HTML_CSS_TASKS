@@ -1,26 +1,26 @@
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.servlet.ServletException;
 
 import com.iamservices.User;
 
 public class CRUDOperation 
 {
-    private Connection getConnection() throws Exception 
+    private Connection getConnection() throws NamingException, SQLException
     {
         Context ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MyDB");
         return ds.getConnection();
     }
 	
-	public User ViewUser(String id) 
+	public User ViewUser(String id)  throws NamingException, SQLException
 	{
 		String sql = "SELECT * FROM user_details WHERE id = ?";
 		User selectedUser = new User();
@@ -53,14 +53,10 @@ public class CRUDOperation
 				selectedUser.setPassword(rs.getString("password"));
 			}
 		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
 		return selectedUser;
 	}
 
-	public List<User> ShowUsers() 
+	public List<User> ShowUsers()  throws NamingException, SQLException
 	{
 		String sql = "SELECT * FROM user_details";
 		List<User> records = new ArrayList<>();
@@ -82,14 +78,10 @@ public class CRUDOperation
 				}
 			}
 		}
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
 		return records;
 	}
 	
-	public boolean deleteUser(String id) 
+	public boolean deleteUser(String id) throws NamingException, SQLException 
 	{
 		String sql = "DELETE FROM user_details WHERE id = ?";
 		int rowsInserted = 0;
@@ -100,14 +92,10 @@ public class CRUDOperation
 			pstmt.setString(1, id);
 			rowsInserted = pstmt.executeUpdate();
 		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
 		return rowsInserted > 0 ? true : false;
 	}
 	
-	public void updateUser(User user) throws ServletException, IOException 
+	public void updateUser(User user) throws NamingException, SQLException
 	{
 		String sql = "UPDATE user_details SET title = ?, first_name = ?, last_name = ?, date_of_birth = ?, gender = ?, email = ?, phone = ?, "
 				+ "aadhar = ?, pan = ?, account_type = ?, address_line1 = ?, address_line2 = ?, district = ?, state = ?, country = ?, "
@@ -139,13 +127,9 @@ public class CRUDOperation
 			
 			pstmt.executeUpdate();	
 		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
 	}
 	
-	public void insertUser(User user) throws ServletException, IOException 
+	public void insertUser(User user) throws NamingException, SQLException
 	{
 		String sql = "INSERT INTO user_details (title, first_name, last_name, date_of_birth, gender, email, phone, aadhar, pan, account_type, "
 					+ "address_line1, address_line2, district, state, country, pincode, nominee_name, nominee_contact, password)"
@@ -176,10 +160,6 @@ public class CRUDOperation
 		
 			pstmt.executeUpdate();
 		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
 	}
 	
 }

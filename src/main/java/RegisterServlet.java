@@ -1,6 +1,8 @@
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,66 +18,87 @@ public class RegisterServlet extends HttpServlet
 	
 	CRUDOperation crud= new CRUDOperation();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 	{
-		String action = request.getParameter("action");
-		boolean isView = "edit".equals(action);
-		if (isView) 
+		try
 		{
-			String id = request.getParameter("id");
-			User user = crud.ViewUser(id);
-			request.setAttribute("user", user);
-			request.getRequestDispatcher("form.jsp").forward(request, response);
-		} 
-		else 
+			String action = request.getParameter("action");
+			boolean isView = "edit".equals(action);
+			if (isView) 
+			{
+				String id = request.getParameter("id");
+				User user = crud.ViewUser(id);
+				request.setAttribute("user", user);
+				request.getRequestDispatcher("form.jsp").forward(request, response);
+			} 
+			else 
+			{
+				List<User> records = crud.ShowUsers();
+				request.setAttribute("records", records);
+				request.getRequestDispatcher("database.jsp").forward(request, response);
+			}
+		}
+		catch (IOException | NamingException | ServletException | SQLException e)
 		{
-			List<User> records = crud.ShowUsers();
-			request.setAttribute("records", records);
-			request.getRequestDispatcher("database.jsp").forward(request, response);
+			e.printStackTrace();
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	{
-		String action = request.getParameter("action");
-		boolean isDelete = "delete".equals(action);
-		boolean isUpdate = "update".equals(action);
 		User user = new User();
-		
-		if (isDelete) 
+		try
 		{
-			String id = request.getParameter("id");
-			crud.deleteUser(id);
-			request.setAttribute("message", "Deleted Successfully");
-			doGet(request, response);
-			return;
-		}
-		else 
-		{
-			user = getUserDetails(request);
-			StringBuilder errorMsg = UserValidator.checkUser(user);
-			if (errorMsg.length() > 0) 
+			String action = request.getParameter("action");
+			boolean isDelete = "delete".equals(action);
+			boolean isUpdate = "update".equals(action);
+			if (isDelete) 
 			{
-				request.setAttribute("user", user);
-				request.setAttribute("message", errorMsg.toString());
-				request.getRequestDispatcher("form.jsp").forward(request, response);
+				String id = request.getParameter("id");
+				crud.deleteUser(id);
+				request.setAttribute("message", "Deleted Successfully");
+				doGet(request, response);
 				return;
 			}
+			else 
+			{
+				user = getUserDetails(request);
+				StringBuilder errorMsg = UserValidator.checkUser(user);
+				if (errorMsg.length() > 0) 
+				{
+					request.setAttribute("user", user);
+					request.setAttribute("message", errorMsg.toString());
+					request.getRequestDispatcher("form.jsp").forward(request, response);
+					return;
+				}
+			}
+			try
+			{
+				if (isUpdate)
+				{
+					crud.updateUser(user);
+					request.setAttribute("message", "Updated Successfully");
+					doGet(request, response);
+					return;
+				}
+				else 
+				{
+					crud.insertUser(user);
+					request.setAttribute("message", "Submitted Successfully");
+					request.getRequestDispatcher("form.jsp").forward(request, response);
+				}
+			}
+			catch (SQLException e1) 
+			{
+				request.setAttribute("user", user);
+				request.setAttribute("message", e1.getMessage());
+				request.getRequestDispatcher("form.jsp").forward(request, response);
+			}
 		}
-		
-		if (isUpdate)
+		catch (IOException | NamingException | ServletException | SQLException e )
 		{
-			crud.updateUser(user);
-			request.setAttribute("message", "Updated Successfully");
-			doGet(request, response);
-			return;
+			e.printStackTrace();
 		}
-		else 
-		{
-			crud.insertUser(user);
-			request.setAttribute("message", "Submitted Successfully");
-			request.getRequestDispatcher("form.jsp").forward(request, response);
-		}	
 	}
 	
 	private User getUserDetails(HttpServletRequest request)

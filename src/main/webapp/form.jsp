@@ -6,7 +6,7 @@
 request.setAttribute("buttonCount", 1);
 request.setAttribute("buttonIcons", new String[]{"groups"});
 request.setAttribute("onClick", new String[]{"window.location.href='RegisterServlet'"});
-request.setAttribute("iconTitle", new String[]{"View Users"});
+request.setAttribute("iconLabel", new String[]{"Users"});
 %>
 
 <%
@@ -38,7 +38,7 @@ String password = editMode ? user.getPassword() : "";
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Bank Account Form</title>
+    <title>IAM</title>
     <link rel="stylesheet" href="form.css"/>
      <link rel="icon" href="images/favicon.png?v=1"/>
 </head>
@@ -174,7 +174,7 @@ String password = editMode ? user.getPassword() : "";
 					<!-- Password Section -->
 					<div class = "part">
 			            <label class="form-label" for="password">Set Password <span class="required">*</span></label>
-			            <input class="form-input" type="password" id="password" name="password" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20}" value="<%= password %>" title="Password must be 8-20 characters long and include at least one number, one special character, one lowercase, and one uppercase letter."required>
+			            <input class="form-input" type="password" id="password" name="password" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20}" value="<%= password %>" title="Password must be 8-20 characters long and include at least one number, one special character, one lowercase, and one uppercase letter." <%= editMode ? "readonly" : "" %> required>
 					</div>
 					
 					<div class = "part">

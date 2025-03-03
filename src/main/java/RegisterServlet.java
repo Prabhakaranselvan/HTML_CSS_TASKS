@@ -29,6 +29,7 @@ public class RegisterServlet extends HttpServlet
 				String id = request.getParameter("id");
 				User user = crud.ViewUser(id);
 				request.setAttribute("user", user);
+				request.setAttribute("action", "edit");
 				request.getRequestDispatcher("form.jsp").forward(request, response);
 			} 
 			else 
@@ -67,6 +68,7 @@ public class RegisterServlet extends HttpServlet
 				if (errorMsg.length() > 0) 
 				{
 					request.setAttribute("user", user);
+					request.setAttribute("action", isUpdate ? "update":"submit");
 					request.setAttribute("message", errorMsg.toString());
 					request.getRequestDispatcher("form.jsp").forward(request, response);
 					return;

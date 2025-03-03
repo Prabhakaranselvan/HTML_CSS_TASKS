@@ -32,6 +32,17 @@ String pincode = editMode ? user.getPincode() : "";
 String nomineeName = editMode ? user.getNomineeName() : "";
 String nomineeContact = editMode ? user.getNomineeContact() : "";
 String password = editMode ? user.getPassword() : "";
+String action = (String) request.getAttribute("action");
+if (action == null) {
+	action="submit";
+}
+else if (action.equals("edit")) {
+	action = "update";
+}
+else {
+	action = editMode ? "update":"submit";
+}
+boolean isSubmit = action.equals("submit");
 %>
 
 <!DOCTYPE html>
@@ -47,8 +58,8 @@ String password = editMode ? user.getPassword() : "";
     <div class="content">
 	    <div class="left-half">
 		    <img src="images/grow.jpg" alt="Rise with Us" class="grow-image">
-		    <h3 class="quote-msg"><%= editMode ? "Hang tight, Grow right!":"Stay, Grow, Conquer!" %></h3>
-		    <h2 class="welcome-msg"><%= editMode ? "Let's Upgrade!" : "Welcome Aboard!" %></h2>
+		    <h3 class="quote-msg"><%= isSubmit ? "Stay, Grow, Conquer!" : "Hang tight, Grow right!" %></h3>
+		    <h2 class="welcome-msg"><%= isSubmit ? "Welcome Aboard!" : "Let's Upgrade!"  %></h2>
 	    </div>
 	    
 	    <div class="right-half">
@@ -57,7 +68,7 @@ String password = editMode ? user.getPassword() : "";
 	
 				<input type="hidden" name="id" value="<%= id %>">
 				
-				<input type="hidden" name="action" value="<%= editMode ? "update" : "submit" %>">
+				<input type="hidden" name="action" value="<%= action %>">
 				
 				<!-- Name Section -->
 				<label class="form-label" for="title">Name <span class="required">*</span></label>
@@ -219,8 +230,8 @@ String password = editMode ? user.getPassword() : "";
 				
 				<!-- Submit Button -->
 				<div class="buttons">
-		            <button class="form-button" type="submit"><%= editMode ? "Update" : "Submit"%></button>
-		            <% if (editMode) { %>
+		            <button class="form-button" type="submit"><%= isSubmit ? "Submit" : "Update"%></button>
+		            <% if (!isSubmit) { %>
 			        	<button class="delete-button" form="delete-form" type="submit">Delete</button>
 				    <% } else { %>
 				        <button class="form-button" type="reset">Reset</button>

@@ -1,62 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.iamservices.User" %>
 <%@ page import="java.time.LocalDate" %>
-<% String message = (String) request.getAttribute("message"); %>
-<% @SuppressWarnings("unchecked")
-List<String[]> records = (List<String[]>) request.getAttribute("records");
-boolean editMode = (records != null && !records.isEmpty());
-String id = editMode ? records.get(0)[0] : "";
-String title = editMode ? records.get(0)[1] : "Mr"; 
-String firstName = editMode ? records.get(0)[2] : "";
-String lastName = editMode ? records.get(0)[3] : "";
-String dob = editMode ? records.get(0)[4] : "";
-String gender = editMode ? records.get(0)[5] : "";
-String email = editMode ? records.get(0)[6] : "";
-String phone = editMode ? records.get(0)[7] : ""; 
-String aadhar = editMode ? records.get(0)[8] : "";
-String pan = editMode ? records.get(0)[9] : "";
-String accountType = editMode ? records.get(0)[10] : "Savings";
-String address1 = editMode ? records.get(0)[11] : "";
-String address2 = editMode ? records.get(0)[12] : "";
-String district = editMode ? records.get(0)[13] : ""; 
-String state = editMode ? records.get(0)[14] : "";
-String country = editMode ? records.get(0)[15] : "";
-String pincode = editMode ? records.get(0)[16] : "";
-String nomineeName = editMode ? records.get(0)[17] : "";
-String nomineeContact = editMode ? records.get(0)[18] : "";
-String password = editMode ? records.get(0)[19] : "";
+
+<%
+request.setAttribute("buttonCount", 1);
+request.setAttribute("buttonIcons", new String[]{"groups"});
+request.setAttribute("onClick", new String[]{"window.location.href='RegisterServlet'"});
+request.setAttribute("iconTitle", new String[]{"View Users"});
+%>
+
+<%
+User user = (User) request.getAttribute("user");
+boolean editMode = (user != null);
+String id = editMode ? user.getId() : "";
+String title = editMode ? user.getTitle() : "Mr"; 
+String firstName = editMode ? user.getFirstName() : "";
+String lastName = editMode ? user.getLastName() : "";
+String dob = editMode ? user.getDob() : "";
+String gender = editMode ? user.getGender() : "";
+String email = editMode ? user.getEmail() : "";
+String phone = editMode ? user.getPhone() : ""; 
+String aadhar = editMode ? user.getAadhar() : "";
+String pan = editMode ? user.getPan() : "";
+String accountType = editMode ? user.getAccountType() : "Savings";
+String address1 = editMode ? user.getAddress1() : "";
+String address2 = editMode ? user.getAddress2() : "";
+String district = editMode ? user.getDistrict() : ""; 
+String state = editMode ? user.getState() : "";
+String country = editMode ? user.getCountry() : "";
+String pincode = editMode ? user.getPincode() : "";
+String nomineeName = editMode ? user.getNomineeName() : "";
+String nomineeContact = editMode ? user.getNomineeContact() : "";
+String password = editMode ? user.getPassword() : "";
 %>
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank Account Form</title>
-    <link rel="icon" href="images/favicon.png?v=1"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="form.css"/>
+     <link rel="icon" href="images/favicon.png?v=1"/>
 </head>
 
 <body>
-	<% if (message != null) { %>
-        <dialog open class="popup-message">
-            <p><%= message %></p>
-            <form method="dialog">
-                <button>OK</button>
-            </form>
-        </dialog>
-    <% } %>
-    <div class="banner">
-	    <div class="logo-container">
-	    	<img src="images/zoho-logo-512.png" alt="Company Logo" class="logo"/>
-	        <span class="company-name">IAM Services</span>
-	    </div>
-        <button type="button" class="view-db-button" onclick="window.location.href='RegisterServlet'"><span title="View Database" class="material-symbols-outlined">groups</span></button>
-    </div>
-    
     <div class="content">
 	    <div class="left-half">
 		    <img src="images/grow.jpg" alt="Rise with Us" class="grow-image">
@@ -81,8 +68,8 @@ String password = editMode ? records.get(0)[19] : "";
 	                    <option value="Ms"<%= "Ms".equals(title) ? "selected" : "" %>>Ms</option>
 	                    <option value="Dr"<%= "Dr".equals(title) ? "selected" : "" %>>Dr</option>
 	                 </select>
-	                 <input class="form-input" type="text" id="first-name" name="first_name" placeholder="First Name" value="<%= firstName %>" required autofocus>
-	                 <input class="form-input" type="text" id="last-name" name="last_name" placeholder="Last Name" value="<%= lastName %>">
+	                 <input class="form-input" type="text" id="first-name" name="first_name" placeholder="First Name" pattern="[A-Za-z]+(?:[\-' ][A-Za-z]+)*" value="<%= firstName %>" required autofocus>
+	                 <input class="form-input" type="text" id="last-name" name="last_name" placeholder="Last Name" pattern="[A-Za-z]+(?:[\-' ][A-Za-z]+)*" value="<%= lastName %>">
 	            </div>
 	
 				
@@ -146,13 +133,13 @@ String password = editMode ? records.get(0)[19] : "";
 					<!-- Aadhar Number Section -->
 					<div class="part">
 			            <label class="form-label" for="aadhar">Aadhar Number <span class="required">*</span></label>
-			            <input class="form-input" type="text" id="aadhar" name="aadhar" maxlength="12" pattern="\d{12}" value="<%= aadhar %>" oninput="this.value = this.value.replace(/\D/g, '')" title="Aadhar number must be 12 digits" required>
+			            <input class="form-input" type="text" id="aadhar" name="aadhar" maxlength="12"  value="<%= aadhar %>" oninput="this.value = this.value.replace(/\D/g, '')" title="Aadhar number must be 12 digits" required>
 					</div>
 				
 					<!-- PAN Number Section -->
 					<div class = "part">
 			            <label class="form-label" for="pan">PAN Number <span class="required">*</span></label>
-			            <input class="form-input" type="text" id="pan" name="pan" maxlength="10" pattern="[A-Z]{5}\d{4}[A-Z]" value="<%= pan %>" title="PAN must be 10 characters: First 5 letters, next 4 digits, and last letter." required>
+			            <input class="form-input" type="text" id="pan" name="pan" maxlength="10" pattern="[A-Z]{5}\d{4}[A-Z]" value="<%= pan %>" oninput="this.value = this.value.toUpperCase();" title="PAN must be 10 characters: First 5 letters, next 4 digits, and last letter." required>
 		            </div>
 				</div>
 				
@@ -173,7 +160,7 @@ String password = editMode ? records.get(0)[19] : "";
 		            <!-- Nominee Details Section -->
 		            <div class="part-with-icon">
 			            <label class="form-label" for="nominee-name">Nominee Name</label>
-			            <input class="form-input" type="text" id="nominee-name" name="nominee_name" value="<%= nomineeName %>">
+			            <input class="form-input" type="text" id="nominee-name" name="nominee_name" pattern="^[A-Za-z]+(?:[\-' ][A-Za-z]+)*" value="<%= nomineeName %>">
 			            <span class="material-symbols-outlined">person</span>
 					</div>
 					<div class="part-with-icon">
@@ -183,10 +170,53 @@ String password = editMode ? records.get(0)[19] : "";
 					</div>
 				</div>
 				
-				<!-- Password Section -->
-	            <label class="form-label" for="password">Set Password <span class="required">*</span></label>
-	            <input class="form-input" type="password" id="password" name="password" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20}" value="<%= password %>" title="Password must be 8-20 characters long and include at least one number, one special character, one lowercase, and one uppercase letter."required>
-	
+				<div class="double-column">
+					<!-- Password Section -->
+					<div class = "part">
+			            <label class="form-label" for="password">Set Password <span class="required">*</span></label>
+			            <input class="form-input" type="password" id="password" name="password" maxlength="20" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20}" value="<%= password %>" title="Password must be 8-20 characters long and include at least one number, one special character, one lowercase, and one uppercase letter."required>
+					</div>
+					
+					<div class = "part">
+						<label class="form-label" for="confirm-password">Confirm Password <span class="required">*</span></label>
+						<input class="form-input" type="password" id="confirm-password" name="confirm_password" required>
+					</div>
+				</div>
+				<div class="show-password">
+				    <input type="checkbox" id="show-password"> <label for="show-password">Show Password</label>
+				</div>
+				<span id="password-error" class="error-message"></span>
+
+				<script>
+				    document.addEventListener("DOMContentLoaded", function () {
+				        const password = document.getElementById("password");
+				        const confirmPassword = document.getElementById("confirm-password");
+				        const showPasswordCheckbox = document.getElementById("show-password");
+				        const errorMessage = document.getElementById("password-error");
+				        const form = document.querySelector("form");
+				        
+				        showPasswordCheckbox.addEventListener("change", function () {
+				            if (showPasswordCheckbox.checked) {
+				                password.type = "text";
+				                confirmPassword.type = "text";
+				            } else {
+				                password.type = "password";
+				                confirmPassword.type = "password";
+				            }
+				        });
+				
+				        form.addEventListener("submit", function (event) {
+				            if (password.value !== confirmPassword.value) {
+				                event.preventDefault(); // Prevent form submission
+				                errorMessage.textContent = "Passwords do not match!";
+				                errorMessage.style.color = "red";
+				            } else {
+				                errorMessage.textContent = "";
+				            }
+				        });
+				    });
+				</script>
+				
 				<!-- Submit Button -->
 				<div class="buttons">
 		            <button class="form-button" type="submit"><%= editMode ? "Update" : "Submit"%></button>
@@ -203,7 +233,7 @@ String password = editMode ? records.get(0)[19] : "";
 		     </form>
 	     </div>
      </div>
-	     
+     <%@ include file="template.jsp" %>
 </body>
 
 </html>
